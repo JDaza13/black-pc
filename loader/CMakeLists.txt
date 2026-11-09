@@ -37,6 +37,7 @@ add_library(blackrt SHARED
   src/fe/settings_autosave.cpp
   src/fe/apt.cpp
   src/fe/pages.cpp
+  src/fe/fonts.cpp
   src/fe/bind_list.cpp
   src/fe/pause_ui.cpp
   src/input/mouselook.cpp
