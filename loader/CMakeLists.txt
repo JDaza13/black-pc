@@ -41,6 +41,7 @@ add_library(blackrt SHARED
   src/fe/pause_ui.cpp
   src/input/mouselook.cpp
   src/input/autoaim.cpp
+  src/input/prompts.cpp
   src/input/lean.cpp
   src/input/sprint.cpp
   src/input/inspect.cpp
