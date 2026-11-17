@@ -190,7 +190,7 @@ cmake --build build/win32 --config RelWithDebInfo
 
 ## Legal & Credits
 This project is not affiliated with Criterion Games or Electronic Arts. BLACK is a trademark of Electronic Arts Inc.; Xbox is a trademark of Microsoft Corporation. No original code or SDK is included. **You need your own legally obtained copy of the game.**
-Developed by Spark198rus. Linux setup structured via AI.
+Developed by Spark198rus. Linux setup structured via AI. Mouse button icons (`loader/res/mouse`) by fez.
 
 ---
 ---
@@ -380,4 +380,4 @@ cmake --build build/win32 --config RelWithDebInfo
 
 ## Legal e Créditos
 Este projeto não é afiliado à Criterion Games ou Electronic Arts. BLACK e Xbox são marcas registradas. Nenhum código original está incluso neste repositório. **Você precisa de uma cópia obtida legalmente do jogo.**
-Desenvolvido por Spark198rus. Guia Linux estruturado via IA.
+Desenvolvido por Spark198rus. Guia Linux estruturado via IA. Ícones dos botões do mouse (`loader/res/mouse`) por fez.
