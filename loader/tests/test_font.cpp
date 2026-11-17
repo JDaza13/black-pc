@@ -14,6 +14,8 @@ using Bytes = std::vector<uint8_t>;
 using util::GreyAlpha;
 using util::Rgba;
 
+constexpr int kIcons = 9;
+
 namespace {
 
 uint32_t rd(const Bytes &b, size_t o) { uint32_t v; memcpy(&v, &b[o], 4); return v; }
@@ -65,7 +67,7 @@ Bytes make_font(int w = 64, int h = 64, int pad = 16, bool with_pad = true)
     return f;
 }
 
-// Five solid black, opaque icons.
+// Solid black, opaque icons, as many as the port adds (left, right, middle, wheel up / down, mouse 4-7).
 std::vector<GreyAlpha> black_icons()
 {
     static std::vector<uint8_t> px = [] {
@@ -73,7 +75,7 @@ std::vector<GreyAlpha> black_icons()
         for (size_t i = 1; i < p.size(); i += 2) p[i] = 255;
         return p;
     }();
-    return std::vector<GreyAlpha>(5, GreyAlpha{32, px.data()});
+    return std::vector<GreyAlpha>(kIcons, GreyAlpha{32, px.data()});
 }
 
 // One pixel of the patched texture.
@@ -111,7 +113,7 @@ TEST(font_icons_texture_and_header)
     CHECK_EQ(r.height, 128);
     size_t tex = rd(f, 4), tex_in = rd(in, 4);
     CHECK_EQ(tex % 0x80, 0u);
-    CHECK_EQ(rd(f, 0x1C), rd(in, 0x1C) + 5 * font::kGlyph);
+    CHECK_EQ(rd(f, 0x1C), rd(in, 0x1C) + kIcons * font::kGlyph);
     CHECK_EQ(rdf(f, 8), rdf(in, 8));
     CHECK_EQ(rdf(f, 0xC), rdf(in, 0xC) * 2);
     CHECK_EQ(rd(f, tex + 0x3C), 128u);
@@ -150,7 +152,7 @@ TEST(font_icon_glyphs)
     REQUIRE(!r.data.empty());
     const Bytes &f = r.data;
     size_t pad = font::find_glyph(in, font::kPadA);
-    for (int n = 0; n < 5; n++) {
+    for (int n = 0; n < kIcons; n++) {
         size_t g = font::find_glyph(f, (wchar_t)(0xE000 + n));
         REQUIRE(g != 0);
         CHECK_EQ(rdf(f, g + 8), 16.f / 64);
@@ -175,7 +177,7 @@ TEST(font_icon_in_a_bucket_that_has_glyphs)
     font::Patched r = font::add_icons(in, black_icons(), 0xE041);
     REQUIRE(!r.data.empty());
     CHECK(font::find_glyph(r.data, L'A') != 0);
-    for (int n = 0; n < 5; n++) CHECK(font::find_glyph(r.data, (wchar_t)(0xE041 + n)) != 0);
+    for (int n = 0; n < kIcons; n++) CHECK(font::find_glyph(r.data, (wchar_t)(0xE041 + n)) != 0);
 }
 
 TEST(font_rejects_what_it_does_not_know)
@@ -212,7 +214,7 @@ TEST(font_real_files_when_given)
         REQUIRE(util::read_file(widen(dir) + L"\\language\\fonts\\" + file, in));
         font::Patched r = font::add_icons(in, black_icons(), 0xE000);
         REQUIRE(!r.data.empty());
-        for (int n = 0; n < 5; n++) CHECK(font::find_glyph(r.data, (wchar_t)(0xE000 + n)) != 0);
+        for (int n = 0; n < kIcons; n++) CHECK(font::find_glyph(r.data, (wchar_t)(0xE000 + n)) != 0);
         // every glyph the game had is still found, at the same place in the texture
         size_t def = rd(in, 0x1C), checked = 0;
         for (size_t g = font::kGlyphs; g < def; g += font::kGlyph) {

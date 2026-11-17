@@ -11,7 +11,7 @@
 //
 // The patch sends FUN_00113BF0 to expand(): while the keyboard and mouse were used last, each placeholder becomes
 // the first key bound to that action in brackets ("[R] to reload your weapon"), or the icon of a mouse button (added
-// to the fonts by fe/fonts.cpp; Mouse 4 / 5 have no icon yet and keep their name); an action with no key keeps its
+// to the fonts by fe/fonts.cpp); an action with no key keeps its
 // pad glyph (the original function, run on just that character). The FE_HINTPROMPT call goes to expand_continue(),
 // which names Enter (the key that continues where the game waits for A, see bindings.cpp). While a controller was
 // used last, the original function runs unchanged. The device is the last one pressed (prompts_poll from read_pad, xinput.cpp).

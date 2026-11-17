@@ -16,7 +16,7 @@ namespace {
 
 #include "fe/mouse_icons.inc"
 
-constexpr wchar_t kFirstIcon = 0xE000; // left, right, middle, wheel up, wheel down (the .inc's order)
+constexpr wchar_t kFirstIcon = 0xE000; // left, right, middle, wheel up, wheel down, mouse 4-7 (the .inc's order)
 bool g_icons;
 
 // The font with the icons, or an empty result (logged) when the file is not laid out as expected.
@@ -71,6 +71,8 @@ wchar_t fe_mouse_icon(uint16_t key)
     case VK_MBUTTON: return kFirstIcon + 2;
     case bindings::KEY_WHEEL_UP: return kFirstIcon + 3;
     case bindings::KEY_WHEEL_DOWN: return kFirstIcon + 4;
+    case VK_XBUTTON1: return kFirstIcon + 5;
+    case VK_XBUTTON2: return kFirstIcon + 6;
     }
     return 0;
 }
